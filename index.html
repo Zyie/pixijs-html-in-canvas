@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>HTML-in-Canvas - PixiJS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- media=print flips to all onload so the font CSS never blocks the loading screen's first paint -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0612;
+            color: rgba(255, 255, 255, 0.87);
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow: hidden;
+        }
+        #app {
+            position: fixed;
+            inset: 0;
+        }
+        #pixi-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #pixi-container canvas {
+            position: absolute;
+            inset: 0;
+            display: block;
+        }
+        /* Loader lives here (not in JS) so it paints on first HTML paint,
+           before the bundle loads. JS only fades/removes it. The opacity
+           transition duration must match FADE_MS in loadingScreen.ts. */
+        .hic-loader {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            background: #0a0612;
+            transition: opacity 220ms ease;
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        }
+        .hic-loader__spinner {
+            color: #e72264;
+            font-size: 46px;
+            line-height: 1;
+        }
+        .hic-loader__spinner::before {
+            content: "⠋";
+            animation: hic-loader-dots 1s steps(1) infinite;
+        }
+        .hic-loader__label {
+            color: #e72264;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+        @keyframes hic-loader-dots {
+            0%  { content: "⠋"; }
+            10% { content: "⠙"; }
+            20% { content: "⠹"; }
+            30% { content: "⠸"; }
+            40% { content: "⠼"; }
+            50% { content: "⠴"; }
+            60% { content: "⠦"; }
+            70% { content: "⠧"; }
+            80% { content: "⠇"; }
+            90% { content: "⠏"; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hic-loader__spinner::before { animation: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="pixi-container">
+            <div class="hic-loader" role="status" aria-label="Loading">
+                <div class="hic-loader__spinner"></div>
+                <div class="hic-loader__label">Loading</div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

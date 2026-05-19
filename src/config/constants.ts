@@ -1,0 +1,9 @@
+export const START_DELAY = 120;
+export const IMPACT_THRESHOLD = 0.5;
+export const IMPACT_DURATION = 28;
+export const TRAIL_MAX_LIFE = 50;
+export const HEAL_FADE_TICKS = 18;
+export const HEAL_HOLD_TICKS = 60;
+export const LASER_RAMP_IN_FRAMES = 50;
+export const LASER_MODE_BLEND = 0.99;
+export const CAT_ENTRY_PROGRESS = 0.38;
