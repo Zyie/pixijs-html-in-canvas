@@ -27,22 +27,24 @@ export const siteHtml = `
     <section class="band showcase" id="pixijs">
       <div class="section-inner">
         <h2 class="band-title">PixiJS API</h2>
-        <p class="band-sub"><code>HTMLSource</code> is just another <code>Texture</code> source.</p>
+        <p class="band-sub">An <code>HTMLSource</code> from <code>pixi.js/html-source</code> is just another <code>Texture</code> source.</p>
         <div class="pixi-split">
-          <pre class="code"><span class="t-k">import</span> { HTMLSource, Texture, Sprite } <span class="t-k">from</span> <span class="t-s">'pixi.js'</span>;
+          <pre class="code"><span class="t-k">import</span> { Sprite } <span class="t-k">from</span> <span class="t-s">'pixi.js'</span>;
+<span class="t-k">import</span> { HTMLSource } <span class="t-k">from</span> <span class="t-s">'pixi.js/html-source'</span>;
 
 <span class="t-k">const</span> page = document.<span class="t-f">createElement</span>(<span class="t-s">'div'</span>);
 canvas.<span class="t-f">appendChild</span>(page); <span class="t-c">// direct canvas child</span>
 
 <span class="t-k">const</span> source = <span class="t-k">new</span> <span class="t-f">HTMLSource</span>({ resource: page });
-<span class="t-k">const</span> sprite = <span class="t-k">new</span> <span class="t-f">Sprite</span>(<span class="t-k">new</span> <span class="t-f">Texture</span>({ source }));
+<span class="t-k">const</span> sprite = Sprite.<span class="t-f">from</span>(source);
 
 app.stage.<span class="t-f">addChild</span>(sprite);
 source.<span class="t-f">requestPaint</span>(); <span class="t-c">// keep it live</span></pre>
           <ul class="pixi-points">
-            <li><code>autoLayout</code> sets <code>layoutsubtree</code> on the owning canvas for you.</li>
+            <li>Importing <code>pixi.js/html-source</code> registers the uploaders, so <code>Texture.from(el)</code> resolves a live element on its own.</li>
+            <li><code>autoLayout</code> sets <code>layoutsubtree</code> on the owning canvas; <code>autoRequestPaint</code> fires the first paint.</li>
             <li><code>autoUpdate</code> listens to <code>paint</code> and re-uploads only when your element changed.</li>
-            <li><code>captureElementImage()</code> freezes a snapshot into an immutable <code>ElementImage</code> you can slice.</li>
+            <li><code>ElementImageSource</code> wraps a <code>captureElementImage()</code> snapshot: an immutable <code>ElementImage</code> you can slice.</li>
             <li>One source feeds both the WebGL and WebGPU renderers; same <code>Texture</code>, same <code>Sprite</code>.</li>
           </ul>
         </div>

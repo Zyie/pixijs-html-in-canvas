@@ -1,4 +1,5 @@
-import { HTMLSource, Sprite, Texture } from "pixi.js";
+import { Sprite, Texture } from "pixi.js";
+import { HTMLSource } from "pixi.js/html-source";
 
 import engineHtml from "../content/engine.html?raw";
 import { siteHtml } from "../content/site";

@@ -9,8 +9,9 @@ rendered, torn, and healed inside the Pixi scene.
 
 ## Requirements
 
-This demo depends on the renderer exposing the HTML-in-Canvas
-`texElementImage2D` entry point. It currently runs in **Chrome with
+This demo depends on the experimental HTML-in-Canvas API: PixiJS exposes it
+through the `pixi.js/html-source` entry point, and the demo feature-detects the
+canvas `requestPaint` method. It currently runs in **Chrome with
 `chrome://flags/#canvas-draw-element` enabled**. Unsupported browsers render a
 fallback notice instead of the scene.
 

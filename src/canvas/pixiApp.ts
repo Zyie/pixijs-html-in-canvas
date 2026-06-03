@@ -1,4 +1,5 @@
 import { Application } from "pixi.js";
+import type { HTMLSourceCanvas } from "pixi.js/html-source";
 
 import { SHADOW } from "../lib/colors";
 import unsupportedHtml from "../content/unsupported.html?raw";
@@ -7,16 +8,9 @@ export interface CreateAppResult {
   app: Application;
 }
 
-// `gl` and the experimental `texElementImage2D` entry point are not in the
-// pixi.js renderer types; probe for them through a minimal capability shape
-// rather than asserting an unrelated WebGL type.
-interface HtmlInCanvasRenderer {
-  gl?: { texElementImage2D?: unknown };
-}
-
 // Creates the Pixi application sized to the container. Returns null (after
-// rendering the unsupported page) when the renderer lacks the HTML-in-Canvas
-// `texElementImage2D` entry point this demo depends on.
+// rendering the unsupported page) when the browser lacks the experimental
+// HTML-in-Canvas `requestPaint` API this demo's HTMLSource depends on.
 export async function createApp(
   container: HTMLElement,
 ): Promise<CreateAppResult | null> {
@@ -47,9 +41,9 @@ export async function createApp(
     imageRendering: "pixelated",
   });
 
-  const rendererGL = (app.renderer as unknown as HtmlInCanvasRenderer).gl;
+  const canvas = app.canvas as HTMLSourceCanvas;
 
-  if (!rendererGL || !("texElementImage2D" in rendererGL)) {
+  if (typeof canvas.requestPaint !== "function") {
     container.innerHTML = unsupportedHtml;
 
     return null;

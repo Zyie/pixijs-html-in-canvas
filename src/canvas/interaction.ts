@@ -1,4 +1,4 @@
-import type { HTMLSource } from "pixi.js";
+import type { HTMLSource } from "pixi.js/html-source";
 
 export interface InteractionDeps {
   getFrontSource: () => HTMLSource;

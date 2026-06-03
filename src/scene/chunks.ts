@@ -1,4 +1,5 @@
-import { Container, HTMLSource, Rectangle, Sprite, Texture } from "pixi.js";
+import { Container, Rectangle, Sprite, Texture } from "pixi.js";
+import type { HTMLSource } from "pixi.js/html-source";
 
 import { config } from "../config/config";
 import { HEAL_FADE_TICKS, HEAL_HOLD_TICKS } from "../config/constants";
