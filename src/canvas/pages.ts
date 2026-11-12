@@ -1,5 +1,6 @@
 import { Sprite, Texture } from "pixi.js";
 import { HTMLSource } from "pixi.js/html-source";
+import type { HTMLSourceCanvas } from "pixi.js/html-source";
 
 import engineHtml from "../content/engine.html?raw";
 import { siteHtml } from "../content/site";
@@ -13,7 +14,7 @@ export interface PagesApi {
 }
 
 export function createPages(
-  canvas: HTMLElement,
+  canvas: HTMLSourceCanvas,
   pageBounds: PageBounds,
   backSprite: Sprite,
 ): PagesApi {
@@ -49,6 +50,14 @@ export function createPages(
 
     source.scaleMode = "linear";
     source.requestPaint();
+
+    // Chrome 155+ only hit tests a drawable element once the canvas is told
+    // where WebGL drew it. The live page fills the canvas, so identity maps it.
+    if (resource === sitePage) {
+      canvas.updateElementGeometry?.(resource, {
+        canvasTransform: new DOMMatrix(),
+      });
+    }
 
     return source;
   }

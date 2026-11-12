@@ -42,7 +42,7 @@ app.stage.<span class="t-f">addChild</span>(sprite);
 source.<span class="t-f">requestPaint</span>(); <span class="t-c">// keep it live</span></pre>
           <ul class="pixi-points">
             <li>Importing <code>pixi.js/html-source</code> registers the uploaders, so <code>Texture.from(el)</code> resolves a live element on its own.</li>
-            <li><code>autoLayout</code> sets <code>layoutsubtree</code> on the owning canvas; <code>autoRequestPaint</code> fires the first paint.</li>
+            <li><code>autoLayout</code> sets <code>content="drawable"</code> on the owning canvas; <code>autoRequestPaint</code> fires the first paint.</li>
             <li><code>autoUpdate</code> listens to <code>paint</code> and re-uploads only when your element changed.</li>
             <li><code>ElementImageSource</code> wraps a <code>captureElementImage()</code> snapshot: an immutable <code>ElementImage</code> you can slice.</li>
             <li>One source feeds both the WebGL and WebGPU renderers; same <code>Texture</code>, same <code>Sprite</code>.</li>
